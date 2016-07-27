@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,8 +19,11 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileSettingDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "net.verheecke.peter.reminders.MESSAGE";
@@ -45,6 +49,21 @@ public class MainActivity extends AppCompatActivity {
 
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
+                .withHeaderBackground(R.drawable.material_bg)
+                .addProfiles(
+                        new ProfileDrawerItem().withName("Peter Verheecke")
+                                .withEmail("pverheecke@gmail.com")
+                                .withIcon(R.drawable.peter_headshot),
+                        new ProfileSettingDrawerItem().withName("Add Account")
+                                .withIcon(GoogleMaterial.Icon.gmd_plus)
+                )
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                    @Override
+                    public boolean onProfileChanged(View view, IProfile profile, boolean current) {
+                        return false;
+                    }
+                })
+                .build();
 
 
 
