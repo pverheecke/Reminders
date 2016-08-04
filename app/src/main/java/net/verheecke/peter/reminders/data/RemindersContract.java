@@ -31,14 +31,10 @@ public class RemindersContract {
 
     public static final class ReminderEntry implements BaseColumns {
         public static final String TABLE_NAME = "reminder";
-        public static final String COLUMN_REMINDER_ID = "reminder_id";
         public static final String COLUMN_USER_ID = "user_id";
         public static final String COLUMN_TITLE = "title";
         public static final String COLUMN_DESCRIPTION = "description";
         public static final String COLUMN_DATE_CREATED = "date_created";
-        public static final String COLUMN_REPEAT_ID = "repeat_id";
-        public static final String COLUMN_DAYS_NOTIFY = "days_expiry";
-        public static final String COLUMN_TIME_NOTIFY = "time_expiry";
         public static final String COLUMN_TAGS = "tags";
 
         public static final Uri CONTENT_URI =
@@ -54,9 +50,12 @@ public class RemindersContract {
         }
     }
 
+    public static final class ReminderMetaEntry implements BaseColumns {
+
+    }
+
     public static final class UserEntry implements BaseColumns {
         public static final String TABLE_NAME = "user";
-        public static final String COLUMN_USER_ID = "user_id";
         public static final String COLUMN_DISPLAY_NAME = "display_name";
         public static final String COLUMN_EMAIL = "email";
 
