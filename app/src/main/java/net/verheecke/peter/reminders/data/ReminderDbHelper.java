@@ -5,7 +5,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import net.verheecke.peter.reminders.data.RemindersContract.ReminderEntry;
-import net.verheecke.peter.reminders.data.RemindersContract.UserEntry;
+import net.verheecke.peter.reminders.data.RemindersContract.TagEntry;
+import net.verheecke.peter.reminders.data.RemindersContract.ReminderTagEntry;
+import net.verheecke.peter.reminders.data.RemindersContract.ReminderScheduleEntry;
 
 
 /**
@@ -26,10 +28,33 @@ public class ReminderDbHelper extends SQLiteOpenHelper {
                 ReminderEntry._ID + " INTEGER PRIMARY KEY, " +
                 ReminderEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
                 ReminderEntry.COLUMN_DESCRIPTION + " TEXT, " +
-                ReminderEntry.COLUMN_DATE_CREATED + " INTEGER NOT NULL, " +
-                ReminderEntry.COLUMN_TAGS + " TEXT NOT NULL, " +
-
                 " UNIQUE (" + ReminderEntry.COLUMN_TITLE +  ") ON CONFLICT REPLACE);";
+
+        final String SQL_CREATE_TAG_TABLE = "CREATE TABLE " + TagEntry.TABLE_NAME + " (" +
+                TagEntry._ID + " INTEGER PRIMARY KEY, " +
+                TagEntry.COLUMN_NAME + " TEXT NOT NULL, " +
+                " UNIQUE (" + TagEntry.COLUMN_NAME + ") ON CONFLICT REPLACE);";
+
+        final String SQL_CREATE_REMINDER_TAG_TABLE = "CREATE TABLE " + ReminderTagEntry.TABLE_NAME
+                + " (" + ReminderTagEntry._ID + " INTEGER PRIMARY KEY, " +
+                ReminderTagEntry.COLUMN_REMINDER_ID + " INTEGER NOT NULL, " +
+                ReminderTagEntry.COLUMN_TAG_ID + " INTEGER NOT NULL, " +
+                " FOREIGN KEY (" + ReminderTagEntry.COLUMN_REMINDER_ID + ") REFERENCES " +
+                ReminderEntry.TABLE_NAME + " (" + ReminderEntry._ID + "), " +
+                " FOREIGN KEY (" + ReminderTagEntry.COLUMN_TAG_ID + ") REFERENCES " +
+                TagEntry.TABLE_NAME + " (" + TagEntry._ID + "), " +
+                " UNIQUE (" + ReminderTagEntry.COLUMN_REMINDER_ID + ", " +
+                ReminderTagEntry.COLUMN_TAG_ID + ") ON CONFLICT REPLACE)";
+
+        final String SQL_CREATE_REMINDER_SCHEDULE_TABLE = "CREATE TABLE " +
+                ReminderScheduleEntry.TABLE_NAME + " (" +
+                ReminderScheduleEntry._ID + " INTEGER PRIMARY KEY, " +
+                ReminderScheduleEntry.COLUMN_REMINDER_ID + " INTEGER NOT NULL, " +
+                ReminderScheduleEntry.COLUMN_REPEAT_START + " INTEGER NOT NULL, " +
+                ReminderScheduleEntry.COLUMN_REPEAT_INTERVAL + " INTEGER NOT NULL, " +
+                " FOREIGN KEY (" + ReminderScheduleEntry.COLUMN_REMINDER_ID + ") REFERENCES " +
+                ReminderEntry.TABLE_NAME + " (" + ReminderEntry._ID + "))";
+
 
     }
 

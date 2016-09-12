@@ -26,14 +26,13 @@ public class RemindersContract {
     // as the ContentProvider hasn't been given any information on what to do with "givemeroot".
     // At least, let's hope not.  Don't be that dev, reader.  Don't be that dev.
     public static final String PATH_REMINDER = "reminder";
+    public static final String PATH_TAG = "tag";
 
 
     public static final class ReminderEntry implements BaseColumns {
         public static final String TABLE_NAME = "reminder";
         public static final String COLUMN_TITLE = "title";
         public static final String COLUMN_DESCRIPTION = "description";
-        public static final String COLUMN_DATE_CREATED = "date_created";
-        public static final String COLUMN_TAGS = "tags";
 
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_REMINDER).build();
@@ -48,7 +47,21 @@ public class RemindersContract {
         }
     }
 
-    public static final class ReminderMetaEntry implements BaseColumns {
+    public static final class TagEntry implements BaseColumns {
+        public static final String TABLE_NAME = "tag";
+        public static final String COLUMN_NAME = "name";
+
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_TAG).build();
+    }
+
+    public static final class ReminderTagEntry implements BaseColumns {
+        public static final String TABLE_NAME = "reminder_tag";
+        public static final String COLUMN_REMINDER_ID = "reminder_id";
+        public static final String COLUMN_TAG_ID = "tag_id";
+    }
+
+    public static final class ReminderScheduleEntry implements BaseColumns {
         public static final String TABLE_NAME = "reminder_meta";
         public static final String COLUMN_REMINDER_ID = "reminder_id";
         public static final String COLUMN_REPEAT_START = "repeat_start";
