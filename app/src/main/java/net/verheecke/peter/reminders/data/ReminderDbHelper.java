@@ -24,21 +24,13 @@ public class ReminderDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         final String SQL_CREATE_REMINDER_TABLE = "CREATE TABLE " + ReminderEntry.TABLE_NAME + " (" +
                 ReminderEntry._ID + " INTEGER PRIMARY KEY, " +
-                ReminderEntry.COLUMN_USER_ID + " INTEGER NOT NULL, " +
                 ReminderEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
                 ReminderEntry.COLUMN_DESCRIPTION + " TEXT, " +
                 ReminderEntry.COLUMN_DATE_CREATED + " INTEGER NOT NULL, " +
                 ReminderEntry.COLUMN_TAGS + " TEXT NOT NULL, " +
 
-                " FOREIGN KEY (" + ReminderEntry.COLUMN_USER_ID + ") REFERENCES" +
-                UserEntry.TABLE_NAME + " (" + UserEntry._ID + "), " +
-                " UNIQUE (" + ReminderEntry.COLUMN_TITLE + ", " +
-                ReminderEntry.COLUMN_USER_ID + ") ON CONFLICT REPLACE);";
+                " UNIQUE (" + ReminderEntry.COLUMN_TITLE +  ") ON CONFLICT REPLACE);";
 
-        final String SQL_CREATE_USER_TABLE = "CREATE TABLE " + UserEntry.TABLE_NAME + " (" +
-                UserEntry._ID + " INTEGER PRIMARY KEY, " +
-                UserEntry.COLUMN_DISPLAY_NAME + " TEXT NOT NULL, " +
-                UserEntry.COLUMN_EMAIL + " TEXT NOT NULL)";
     }
 
     @Override

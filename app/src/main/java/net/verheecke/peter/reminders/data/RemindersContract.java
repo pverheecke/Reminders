@@ -26,12 +26,10 @@ public class RemindersContract {
     // as the ContentProvider hasn't been given any information on what to do with "givemeroot".
     // At least, let's hope not.  Don't be that dev, reader.  Don't be that dev.
     public static final String PATH_REMINDER = "reminder";
-    public static final String PATH_USER = "user";
 
 
     public static final class ReminderEntry implements BaseColumns {
         public static final String TABLE_NAME = "reminder";
-        public static final String COLUMN_USER_ID = "user_id";
         public static final String COLUMN_TITLE = "title";
         public static final String COLUMN_DESCRIPTION = "description";
         public static final String COLUMN_DATE_CREATED = "date_created";
@@ -51,25 +49,10 @@ public class RemindersContract {
     }
 
     public static final class ReminderMetaEntry implements BaseColumns {
-
+        public static final String TABLE_NAME = "reminder_meta";
+        public static final String COLUMN_REMINDER_ID = "reminder_id";
+        public static final String COLUMN_REPEAT_START = "repeat_start";
+        public static final String COLUMN_REPEAT_INTERVAL = "repeat_interval";
     }
 
-    public static final class UserEntry implements BaseColumns {
-        public static final String TABLE_NAME = "user";
-        public static final String COLUMN_DISPLAY_NAME = "display_name";
-        public static final String COLUMN_EMAIL = "email";
-
-        public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_USER).build();
-
-        public static final String CONTENT_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_REMINDER;
-        public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_REMINDER;
-
-        public static Uri buildUserUri(long id) {
-            return ContentUris.withAppendedId(CONTENT_URI, id);
-        }
-
-    }
 }
