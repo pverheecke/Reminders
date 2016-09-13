@@ -25,8 +25,10 @@ public class RemindersContract {
     // looking at weather data. content://com.example.android.sunshine.app/givemeroot/ will fail,
     // as the ContentProvider hasn't been given any information on what to do with "givemeroot".
     // At least, let's hope not.  Don't be that dev, reader.  Don't be that dev.
-    public static final String PATH_REMINDER = "reminder";
-    public static final String PATH_TAG = "tag";
+    public static final String PATH_REMINDER = "reminders";
+    public static final String PATH_TAG = "tags";
+    public static final String PATH_REMINDER_TAG = "reminder_tags";
+    public static final String PATH_REMINDER_SCHEDULE = "reminder_schedules";
 
 
     public static final class ReminderEntry implements BaseColumns {
@@ -53,19 +55,38 @@ public class RemindersContract {
 
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_TAG).build();
+
+        public static final String CONTENT_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_TAG;
+        public static final String CONTENT_ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_TAG;
     }
 
     public static final class ReminderTagEntry implements BaseColumns {
         public static final String TABLE_NAME = "reminder_tag";
         public static final String COLUMN_REMINDER_ID = "reminder_id";
         public static final String COLUMN_TAG_ID = "tag_id";
+
+        public static final String CONTENT_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" +
+                        PATH_REMINDER_TAG;
+        public static final String CONTENT_ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" +
+                        PATH_REMINDER_TAG;
     }
 
     public static final class ReminderScheduleEntry implements BaseColumns {
-        public static final String TABLE_NAME = "reminder_meta";
+        public static final String TABLE_NAME = "reminder_schedule";
         public static final String COLUMN_REMINDER_ID = "reminder_id";
         public static final String COLUMN_REPEAT_START = "repeat_start";
         public static final String COLUMN_REPEAT_INTERVAL = "repeat_interval";
+
+        public static final String CONTENT_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" +
+                        PATH_REMINDER_SCHEDULE;
+        public static final String CONTENT_ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" +
+                        PATH_REMINDER_SCHEDULE;
     }
 
 }
